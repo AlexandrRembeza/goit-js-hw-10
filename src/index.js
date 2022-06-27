@@ -50,7 +50,7 @@ function renderOneCountryMarkup(country) {
   if (country[0].name.official === currentCountry) {
     return;
   }
-  console.log(country);
+
   clearCountryDivAndCountriesList();
 
   let oneCountryMarkup = country
@@ -126,7 +126,6 @@ function showErrorMessage() {
 }
 
 function showOneCountryMarkup(e) {
-  console.log(e.target.nodeName);
   if (e.target.nodeName === 'LI') {
     const nameCountry = e.target.lastElementChild.textContent;
     fetchCountries(nameCountry)

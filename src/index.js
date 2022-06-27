@@ -47,23 +47,23 @@ function findCountryAndRenderMarkup(e) {
 }
 
 function renderOneCountryMarkup(country) {
-  if (country[0].name.common === currentCountry) {
+  if (country[0].name.official === currentCountry) {
     return;
   }
-
+  console.log(country);
   clearCountryDivAndCountriesList();
 
   let oneCountryMarkup = country
     .map(
       ({
         flags: { svg },
-        name: { common },
+        name: { common, official },
         capital,
         languages,
         population,
       }) => {
         const languagesStr = Object.values(languages).join(', ');
-        currentCountry = common;
+        currentCountry = official;
 
         return `<p>
                 <span><img src="${svg}" alt="flag" width="40px" height="auto"></span>
@@ -86,7 +86,7 @@ function renderCountriesMarkup(countries) {
   let countriesItemsMarkup = countries
     .map(({ flags: { svg }, name: { common } }) => {
       return `<li class="list-items">
-                 <div><img src="${svg}" alt="flag" width="40px" height="auto"></div> 
+                 <img src="${svg}" alt="flag" width="40px" height="auto">
                  <div class="item-text">${common}</div>
               </li>`;
     })
@@ -149,7 +149,7 @@ function showOneCountryMarkup(e) {
     return;
   }
   if (e.target.nodeName === 'IMG') {
-    const nameCountry = e.target.previousElementSibling.textContent;
+    const nameCountry = e.target.nextElementSibling.textContent;
     fetchCountries(nameCountry)
       .then(resolve => {
         if (resolve.length > 10) {

@@ -23,6 +23,7 @@ function findCountryAndRenderMarkup(e) {
   const userInputValue = e.target.value.trim();
 
   if (userInputValue === '') {
+    currentCountry = '';
     clearCountryDivAndCountriesList();
     return;
   }

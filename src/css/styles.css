@@ -20,6 +20,8 @@ body {
 }
 
 .country-list {
+  width: 250px;
+  display: block;
   padding-left: 20px;
   font-size: 18px;
   font-weight: 600;
@@ -45,4 +47,9 @@ div.item-text {
 
 .span-text {
   font-weight: bold;
+}
+
+.country-list li:hover {
+  background-color: rgb(88, 111, 161, 0.2);
+  cursor: pointer;
 }

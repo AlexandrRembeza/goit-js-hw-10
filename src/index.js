@@ -17,6 +17,7 @@ refs.inputEL.addEventListener(
   'input',
   debounce(findCountryAndRenderMarkup, DEBOUNCE_DELAY)
 );
+refs.listCountriesEL.addEventListener('click', showOneCountryMarkup);
 
 function findCountryAndRenderMarkup(e) {
   const userInputValue = e.target.value.trim();
@@ -122,4 +123,71 @@ function showErrorMessage() {
     fontSize: '18px',
     timeout: 2000,
   });
+}
+
+function showOneCountryMarkup(e) {
+  console.log(e.target.nodeName);
+  if (e.target.nodeName === 'LI') {
+    const nameCountry = e.target.lastElementChild.textContent;
+    fetchCountries(nameCountry)
+      .then(resolve => {
+        if (resolve.length > 10) {
+          clearCountryDivAndCountriesList();
+          showInfoMessage(
+            'Too many matches found. Please enter a more specific name.'
+          );
+          return;
+        }
+
+        if (resolve.length > 1) {
+          renderCountriesMarkup(resolve);
+        } else if (resolve.length === 1) {
+          renderOneCountryMarkup(resolve);
+        }
+      })
+      .catch(showErrorMessage);
+    return;
+  }
+  if (e.target.nodeName === 'IMG') {
+    const nameCountry = e.target.previousElementSibling.textContent;
+    fetchCountries(nameCountry)
+      .then(resolve => {
+        if (resolve.length > 10) {
+          clearCountryDivAndCountriesList();
+          showInfoMessage(
+            'Too many matches found. Please enter a more specific name.'
+          );
+          return;
+        }
+
+        if (resolve.length > 1) {
+          renderCountriesMarkup(resolve);
+        } else if (resolve.length === 1) {
+          renderOneCountryMarkup(resolve);
+        }
+      })
+      .catch(showErrorMessage);
+    return;
+  }
+  if (e.target.nodeName === 'DIV') {
+    const nameCountry = e.target.textContent;
+    fetchCountries(nameCountry)
+      .then(resolve => {
+        if (resolve.length > 10) {
+          clearCountryDivAndCountriesList();
+          showInfoMessage(
+            'Too many matches found. Please enter a more specific name.'
+          );
+          return;
+        }
+
+        if (resolve.length > 1) {
+          renderCountriesMarkup(resolve);
+        } else if (resolve.length === 1) {
+          renderOneCountryMarkup(resolve);
+        }
+      })
+      .catch(showErrorMessage);
+    return;
+  }
 }
